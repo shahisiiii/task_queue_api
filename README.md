@@ -55,7 +55,9 @@ Redis 7+
 Clone the repository
 
 
-```bash git clone <repository-url> ```
+```bash 
+    git clone <repository-url> 
+```
 
 ```bash cd task_queue_project ```
 
