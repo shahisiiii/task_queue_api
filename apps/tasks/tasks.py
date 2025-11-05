@@ -60,3 +60,41 @@ def process_task(self, task_id):
 
         # Retry after 60 seconds (max 3 retries)
         raise self.retry(exc=e, countdown=60)
+
+
+
+@shared_task
+def cleanup_old_tasks():
+    """
+    Periodic task to clean up old completed/failed tasks
+    Runs daily via Celery Beat
+    """
+    # Delete tasks older than 30 days
+    threshold_date = timezone.now() - timedelta(days=30)
+    
+    deleted_count = Task.objects.filter(
+        created_at__lt=threshold_date,
+        status__in=['COMPLETED', 'FAILED']
+    ).delete()[0]
+    
+    return {
+        'deleted_count': deleted_count,
+        'threshold_date': threshold_date.isoformat()
+    }
+
+
+@shared_task
+def generate_task_summary():
+    """
+    Generate a summary of all tasks
+    """
+    from django.db.models import Count
+    
+    summary = Task.objects.values('status').annotate(
+        count=Count('id')
+    )
+    
+    return {
+        'summary': list(summary),
+        'generated_at': timezone.now().isoformat()
+    }
