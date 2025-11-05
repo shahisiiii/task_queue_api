@@ -163,7 +163,10 @@ The application will be available at http://localhost:8000
 
 ## Register User
 
-``` httpPOST /api/users/register/
+**Request:**
+
+``` http
+POST /api/users/register/
 Content-Type: application/json
 
 {
@@ -174,8 +177,9 @@ Content-Type: application/json
   "first_name": "John",
   "last_name": "Doe"
 }
+
 Response:
-json{
+```json{
   "user": {
     "id": 1,
     "username": "john_doe",
@@ -186,8 +190,7 @@ json{
     "access": "eyJ0eXAiOiJKV1QiLCJhbGc..."
   },
   "message": "User registered successfully"
-} ```
-
+} 
 Login
 httpPOST /api/users/login/
 Content-Type: application/json
