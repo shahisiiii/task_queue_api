@@ -1,76 +1,121 @@
 # Task Queue & Notification API
+
+
 A Django REST Framework application with Celery and Redis for managing asynchronous background tasks.
+
 
 ## Features
 
+
 JWT-based authentication
+
 Asynchronous task processing with Celery
+
 Redis caching for fast data retrieval
+
 Admin-only endpoints
+
 Docker support
+
 
 ## Tech Stack
 
+
 Backend: Django 4.2, Django REST Framework
+
 Authentication: JWT (Simple JWT)
+
 Task Queue: Celery 5.5
+
 Message Broker: Redis
+
 Database: PostgreSQL
+
 Caching: Redis (django-redis)
 
 
 ## Installation
 
+
 Option 1: Local Setup
+
 Prerequisites
 
-Python 3.11 
-PostgreSQL 15
-Redis 7
+
+Python 3.11+
+
+PostgreSQL 17+
+
+Redis 7+
+
 
 ## Steps
 
+
 Clone the repository
 
+
 ```bash git clone <repository-url> ```
+
 ```bash cd task_queue_project ```
+
 
 ## Create virtual environment
 
+
 ``` bash python -m venv venv ```
+
 ``` bash source venv/bin/activate  # On Windows: venv\Scripts\activate ```
+
 
 ## Install dependencies
 
+
 ``` bash pip install -r requirements.txt ```
+
 
 ## Create .env file
 
+
 ``` bash cp .env.example .env ```
+
 
 Edit .env with your configuration
 
+
 Setup database
 
+
 ``` bash # Create PostgreSQL database ```
+
 ``` bash createdb task_queue_db ```
+
 
 ## Run migrations
 
+
 ``` bash python manage.py makemigrations ```
+
 ``` bash python manage.py migrate ```
+
 
 ## Create superuser (optional)
 
+
 ``` bash python manage.py createsuperuser ```
+
 
 ## Start Redis
 
+
 ```bash redis-server```
+
 
 # Run the application
 
+
 Open 4 terminal windows:
+
 Terminal 1 - Django Server:
 bashpython manage.py runserver
 Terminal 2 - Celery Worker:
