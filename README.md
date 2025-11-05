@@ -176,6 +176,8 @@ Content-Type: application/json
   "first_name": "John",
   "last_name": "Doe"
 }
+```
+
 
 Response:
 ```json{
