@@ -56,18 +56,24 @@ Clone the repository
 
 
 ```bash 
-    git clone <repository-url> 
+git clone <repository-url> 
 ```
 
-```bash cd task_queue_project ```
+```bash 
+cd task_queue_project 
+```
 
 
 ## Create virtual environment
 
 
-``` bash python -m venv venv ```
+``` bash 
+python -m venv venv 
+```
 
-``` bash source venv/bin/activate  # On Windows: venv\Scripts\activate ```
+``` bash 
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+ ```
 
 
 ## Install dependencies
