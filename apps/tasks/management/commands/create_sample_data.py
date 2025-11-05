@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from tasks.models import Task
+from apps.tasks.models import Task
 import random
 
 
@@ -68,15 +68,13 @@ class Command(BaseCommand):
             user = random.choice(users)
             title = random.choice(task_titles)
             status = random.choice(statuses)
-            progress = random.randint(0, 100) if status != 'PENDING' else 0
             
             task = Task.objects.create(
                 user=user,
                 title=f'{title} #{i+1}',
                 description=f'Sample task description for {title}',
                 status=status,
-                progress=progress,
-                result={'sample': 'data'} if status == 'COMPLETED' else None
+                result=f'Sample {title} completed' if status == 'COMPLETED' else None
             )
             
             self.stdout.write(
