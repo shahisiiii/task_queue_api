@@ -39,9 +39,9 @@ class TaskViewSet(viewsets.ModelViewSet):
         end_date = self.request.query_params.get('end_date')
 
         if start_date:
-            queryset = queryset.filter(created_at__gte=start_date)
+            queryset = queryset.filter(created_at__date__gte=start_date)
         if end_date:
-            queryset = queryset.filter(created_at__lte=end_date)
+            queryset = queryset.filter(created_at__date__lte=end_date)
 
         return queryset
 
@@ -97,10 +97,13 @@ class TaskViewSet(viewsets.ModelViewSet):
         """
         task = self.get_object()
         cache.delete(f"task:{task.id}")
+        del_task_id = task.id
         task.delete()
+        
+        
 
         return Response(
-            {'message': f'Task {task.id} deleted successfully'},
+            {'message': f'Task {del_task_id} deleted successfully'},
             status=status.HTTP_200_OK
         )
 
