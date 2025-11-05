@@ -77,13 +77,17 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 ## Install dependencies
 
 
-``` bash pip install -r requirements.txt ```
+``` bash 
+pip install -r requirements.txt 
+```
 
 
 ## Create .env file
 
 
-``` bash cp .env.example .env ```
+``` bash 
+cp .env.example .env 
+```
 
 
 Edit .env with your configuration
@@ -92,51 +96,80 @@ Edit .env with your configuration
 Setup database
 
 
-``` bash # Create PostgreSQL database ```
+## Create PostgreSQL database 
 
-``` bash createdb task_queue_db ```
+
+``` bash 
+createdb task_queue_db
+```
 
 
 ## Run migrations
 
 
-``` bash python manage.py makemigrations ```
+``` bash 
+python manage.py makemigrations
+```
 
-``` bash python manage.py migrate ```
+``` bash 
+python manage.py migrate 
+```
 
 
 ## Create superuser (optional)
 
 
-``` bash python manage.py createsuperuser ```
+``` bash 
+python manage.py createsuperuser
+ ```
 
 
 ## Start Redis
 
 
-```bash redis-server```
+```bash 
+redis-server
+```
 
 
 # Run the application
 
 
-Open 4 terminal windows:
+## Open 4 terminal windows:
 
 Terminal 1 - Django Server:
-bashpython manage.py runserver
-Terminal 2 - Celery Worker:
-bashcelery -A task_queue_project worker --pool=solo --loglevel=info
-Terminal 3 - Celery Beat (for periodic tasks):
-bashcelery -A task_queue_project beat --loglevel=info
 
+```bash
+python manage.py runserver
+```
+Terminal 2 - Celery Worker:
+
+```bash
+celery -A task_queue_project worker --pool=solo --loglevel=info
+```
+Terminal 3 - Celery Beat (for periodic tasks):
+
+```bash
+celery -A task_queue_project beat --loglevel=info
+```
 
 The application will be available at http://localhost:8000
 
+
 # API Endpoints
 
-Authentication
-Register User
-httpPOST /api/users/register/
+
+## Authentication
+
+## Register User
+
+**Request:**
+
+```http
+POST /api/auth/register/
+Content-Type: application/json
+
+``` httpPOST /api/users/register/ ```
 Content-Type: application/json
 
 {
@@ -159,7 +192,7 @@ json{
     "access": "eyJ0eXAiOiJKV1QiLCJhbGc..."
   },
   "message": "User registered successfully"
-}
+} ```
 Login
 httpPOST /api/users/login/
 Content-Type: application/json
