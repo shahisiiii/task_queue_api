@@ -163,7 +163,6 @@ The application will be available at http://localhost:8000
 
 ## Register User
 
-**Request:**
 
 ``` http
 POST /api/users/register/
