@@ -49,6 +49,55 @@ PostgreSQL 17+
 Redis 7+
 
 
+## Project Structure
+
+
+```
+task_queue_project/
+├── apps/
+│   ├── tasks/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── management/
+│   │   │   └── commands/
+│   │   │       └──create_sample_data.py 
+│   │   ├── migrations/
+│   │   │   └── __init__.py
+│   │   ├── permissions.py            # custum permissions
+│   │   ├── models.py                 # Task model definition
+│   │   ├── serializers.py            # DRF serializers for Task model
+│   │   ├── tasks.py                  # Celery background task functions
+│   │   ├── urls.py                   # API endpoints for tasks
+│   │   └── views.py                  # API views and logic
+│   │
+│   └── users/
+│       ├── __init__.py
+│       ├── admin.py
+│       ├── apps.py
+│       ├── migrations/
+│       │   └── __init__.py
+│       ├── models.py                 # Custom User model
+│       ├── serializers.py            # DRF serializers for User model
+│       ├── urls.py                   # Auth endpoints (register, login)
+│       └── views.py                  # Authentication and user management
+│
+├── task_queue_project/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── celery.py                     # Celery configuration
+│   ├── settings.py                   # Django project settings
+│   ├── urls.py                       # Root URL configuration
+│   └── wsgi.py
+│
+├── .env.example                      # Example environment variables
+├── .gitignore
+├── manage.py                         # Django management script
+├── README.md
+└── requirements.txt                  # Python dependencies
+```
+
+
 ## Steps
 
 
