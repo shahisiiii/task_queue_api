@@ -1,7 +1,7 @@
 # Task Queue & Notification API
 A Django REST Framework application with Celery and Redis for managing asynchronous background tasks.
 
-Features
+## Features
 
 JWT-based authentication
 Asynchronous task processing with Celery
@@ -9,7 +9,7 @@ Redis caching for fast data retrieval
 Admin-only endpoints
 Docker support
 
-Tech Stack
+## Tech Stack
 
 Backend: Django 4.2, Django REST Framework
 Authentication: JWT (Simple JWT)
@@ -19,51 +19,54 @@ Database: PostgreSQL
 Caching: Redis (django-redis)
 
 
-Installation
+## Installation
+
 Option 1: Local Setup
 Prerequisites
 
-Python 3.11+
-PostgreSQL 15+
-Redis 7+
+Python 3.11 
+PostgreSQL 15
+Redis 7
 
-Steps
+## Steps
 
 Clone the repository
 
-bashgit clone <repository-url>
-cd task_queue_project
+```bash git clone <repository-url> ```
+```bash cd task_queue_project ```
 
-Create virtual environment
+## Create virtual environment
 
-bashpython -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+``` bash python -m venv venv ```
+``` bash source venv/bin/activate  # On Windows: venv\Scripts\activate ```
 
-Install dependencies
+## Install dependencies
 
-bashpip install -r requirements.txt
+``` bash pip install -r requirements.txt ```
 
-Create .env file
+## Create .env file
 
-bashcp .env.example .env
-# Edit .env with your configuration
+``` bash cp .env.example .env ```
+
+Edit .env with your configuration
 
 Setup database
 
-bash# Create PostgreSQL database
-createdb task_queue_db
+``` bash # Create PostgreSQL database ```
+``` bash createdb task_queue_db ```
 
-# Run migrations
-python manage.py makemigrations
-python manage.py migrate
+## Run migrations
 
-Create superuser (optional)
+``` bash python manage.py makemigrations ```
+``` bash python manage.py migrate ```
 
-bashpython manage.py createsuperuser
+## Create superuser (optional)
 
-Start Redis
+``` bash python manage.py createsuperuser ```
 
-bashredis-server
+## Start Redis
+
+```bash redis-server```
 
 # Run the application
 
