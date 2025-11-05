@@ -196,17 +196,21 @@ Response:
   "message": "User registered successfully"
 }
 ```
- 
+
 Login
-httpPOST /api/users/login/
+
+```http
+POST /api/users/login/
 Content-Type: application/json
 
 {
   "username": "john_doe",
   "password": "SecurePass123!"
 }
+```
 Response:
-json{
+```json
+{
   "user": {
     "id": 1,
     "username": "john_doe",
@@ -218,28 +222,41 @@ json{
   },
   "message": "Login successful"
 }
-Refresh Token
-httpPOST /api/users/token/refresh/
-Content-Type: application/json
+```
 
+Refresh Token
+
+```http
+POST /api/users/token/refresh/
+Content-Type: application/json
+```
+
+```json
 {
   "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
 }
+```
 
 # Tasks
 
-Create Task
+## Create Task
 
-httpPOST /api/tasks/tasks/
+```http
+POST /api/tasks/tasks/
 Authorization: Bearer <access_token>
 Content-Type: application/json
+
 
 {
   "title": "Process Customer Data",
   "description": "Import and process customer CSV file"
 }
+```
+
 Response:
-json{
+
+```json
+{
   "task": {
     "id": 1,
     "user": {
@@ -257,19 +274,33 @@ json{
   },
   "message": "Task created and processing started"
 }
+```
 
-List Tasks
 
-httpGET /api/tasks/tasks/
+## List Tasks
+
+```http
+GET /api/tasks/tasks/
 Authorization: Bearer <access_token>
+```
 
-# With filters
+## With filters
+
+
+```http
 GET /api/tasks/tasks/?status=COMPLETED
+
 GET /api/tasks/tasks/?start_date=2025-11-01&end_date=2025-11-05
+
 GET /api/tasks/tasks/?search=title,description
+
 GET /api/tasks/tasks/?ordering=-created_at,status,updated_at
+```
+
 Response:
-json{
+
+```json
+{
   "count": 25,
   "next": "http://localhost:8000/api/tasks/?page=2",
   "previous": null,
@@ -283,11 +314,20 @@ json{
     }
   ]
 }
-Get Single Task (with caching)
-httpGET /api/tasks/1/
+```
+
+## Get Single Task (with caching)
+
+
+```http
+GET /api/tasks/1/
 Authorization: Bearer <access_token>
+```
+
 Response:
-json{
+
+```json
+{
   "task": {
     "id": 1,
     "user": {
@@ -305,22 +345,33 @@ json{
   },
   "cached": true
 }
+```
 
-Delete Task
+## Delete Task
 
-httpDELETE /api/tasks/tasks/1/
+```http
+DELETE /api/tasks/tasks/1/
 Authorization: Bearer <access_token>
+```
+
 Response:
-json{
+
+```json
+{
   "message": "Task 1 deleted successfully"
 }
+```
 
-Task Statistics
+## Task Statistics
 
-httpGET /api/tasks/stats/
+```http
+GET /api/tasks/stats/
 Authorization: Bearer <access_token>
+```
 Response:
-json{
+
+```json
+{
   "stats": [
     {"status": "PENDING", "count": 5},
     {"status": "PROCESSING", "count": 2},
@@ -329,14 +380,22 @@ json{
   ],
   "total": 26
 }
-Admin - View All Tasks
-httpGET /api/admin/tasks/
-Authorization: Bearer <admin_access_token>
+```
+## Admin - View All Tasks
 
-# With filters
+```http
+GET /api/admin/tasks/
+Authorization: Bearer <admin_access_token>
+```
+
+## With filters
+```http
 GET /api/admin/tasks/?status=FAILED
+```
 Response:
-json{
+
+```json
+{
   "count": 150,
   "tasks": [
     {
@@ -353,33 +412,46 @@ json{
     }
   ]
 }
-
+```
 
 Task Status Flow
 
-PENDING → PROCESSING → COMPLETED/FAILED
+``` PENDING → PROCESSING → COMPLETED/FAILED ```
 
 PENDING: Task created, waiting for processing
+
 PROCESSING: Task is being executed by Celery worker
+
 COMPLETED: Task finished successfully
+
 FAILED: Task encountered an error
 
-Caching Strategy
+
+## Caching Strategy
+
 
 Task details are cached in Redis with 5-minute TTL
+
 Cache is invalidated on:
 
+
 Task status update
+
 Task deletion
+
 Task result modification
 
 
 Cache key format: task_queue:task:{task_id}
 
-Celery Tasks
+
+## Celery Tasks
+
+
 Background Task Processing
 
 Simulates 10-20 second processing time
+
 Auto-retries on failure (max 3 times)
 
 Periodic Tasks (Celery Beat)
@@ -387,47 +459,80 @@ Periodic Tasks (Celery Beat)
 cleanup_old_tasks: Runs daily at midnight
 
 Deletes completed/failed tasks older than 30 days
+
 Frees up database storage
 
 
-Environment Variables
+### Environment Variables
+
+
 Create a .env file in the project root:
+
 env# Django
+
 SECRET_KEY=your-secret-key-here
+
 DEBUG=True
+
 ALLOWED_HOSTS=localhost,127.0.0.1
 
-# Database
+
+### Database
+
+
 DB_NAME=task_queue_db
+
 DB_USER=postgres
+
 DB_PASSWORD=postgres
+
 DB_HOST=localhost
+
 DB_PORT=5432
 
-# Redis
+
+### Redis
+
+
 REDIS_HOST=localhost
+
 REDIS_PORT=6379
+
 REDIS_DB=0
 
-# Celery
-CELERY_BROKER_URL=redis://localhost:6379/0
-CELERY_RESULT_BACKEND=redis://localhost:6379/0
 
-Error Handling
+### Celery
+
+``` CELERY_BROKER_URL=redis://localhost:6379/0 ```
+
+``` CELERY_RESULT_BACKEND=redis://localhost:6379/0 ```
+
+## Error Handling
+
+
 The API uses standard HTTP status codes:
 
 200 OK: Successful GET, PUT, PATCH, DELETE
+
 201 Created: Successful POST
+
 400 Bad Request: Invalid request data
+
 401 Unauthorized: Missing or invalid authentication
+
 403 Forbidden: Insufficient permissions
+
 404 Not Found: Resource doesn't exist
+
 500 Internal Server Error: Server error
 
-Error response format:
-json{
+## Error response format:
+
+```json
+{
   "error": "Detailed error message",
   "field_errors": {
     "title": ["This field is required."]
   }
 }
+```
